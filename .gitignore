@@ -1,0 +1,21 @@
+# Build Files
+dist
+build
+.rpt2_cache
+
+# logfiles
+*.log
+
+
+# misc editing tools
+.vscode/
+.idea/
+
+# build tools
+node_modules/
+coverage/
+.nyc_output/
+*.tgz
+
+# Mac
+*.DS_Store

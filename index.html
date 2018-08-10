@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>pixi demo</title>
+        <style type="text/css">
+          .container {
+            display: flex;
+            flex-direction: row;
+          }
+          .canvas_container {
+            display: flex;
+            flex-direction: column;
+          }
+          .property {
+            display: flex;
+            flex-direction: row;
+          }
+          .control_container {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            align-items: center;
+          }
+          .d-layout {
+            margin: 5px;
+          }
+          .control_container button {
+            margin: 5px;
+            font-size: 15px;
+          }
+          .blocks {
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+          .blocks div {
+            margin: 5px;
+          }
+        </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="canvas_container">
+          <div class="canvas"></div>
+          <div class="property">
+            <div>
+              x:
+              <input id="input_x" name="x"/>
+            </div>
+            <div>
+              y:
+              <input id="input_y" name="y" />
+            </div>
+          </div>
+        </div>
+        <div class="control_container">
+          <div class="title d-layout">
+            A test PIXI demo
+          </div>
+          <button id="move_towards">
+            移动10步
+          </button>
+          <button id="rotate">
+            旋转10度
+          </button>
+        </div>
+        <div class="blocks">
+          <div>blocks</div>
+          <div id="content"></div>
+          <button id="run">RUN</button>
+          <button id="clear">CLEAR</button>
+        </div>
+      </div>
+        <script src="./dist/bundle.js"></script>
+    </body>
+</html>
