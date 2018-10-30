@@ -7,15 +7,18 @@ export class Actor extends PIXI.Sprite {
   private is_dragging:boolean = false;
   private drag_data:any;
   private state:State;
-  constructor(id:string, texture:PIXI.Texture) {
+  private scene_id:string;
+  constructor(id:string, texture:PIXI.Texture, scene_id:string) {
     super(texture);
     this.id = id;
+    this.scene_id = scene_id;
 
     this.position.x = 0;
     this.position.y = 0;
     this.anchor.set(0.5);
-    this.scale.set(1);
+    this.scale.set(1, -1);
     this.interactive = true;
+    // this.filters = [new PIXI.filters.ColorMatrixFilter()];
     this.editor = new ActorEditor(this);
     this.addChild(this.editor);
     this.texture.baseTexture.on('loaded', () => {
@@ -37,6 +40,14 @@ export class Actor extends PIXI.Sprite {
   }
   public move_y(steps:number) {
     this.position.y += steps;
+  }
+  public set_x(steps:number) {
+    if (isNaN(steps)) {return; }
+    this.position.x = steps;
+  }
+  public set_y(steps:number) {
+    if (isNaN(steps)) {return; }
+    this.position.y = steps;
   }
   public rotate(angle:number) {
     const rotation_value = angle * Math.PI / 180;
@@ -60,5 +71,31 @@ export class Actor extends PIXI.Sprite {
   }
   private pointer_up() {
     this.is_dragging = false;
+  }
+  
+  public get_texture() {
+    return this._texture;
+  }
+  
+  public set_color() {
+    // make a shader
+    // const shader = `
+    //   precision mediump float;
+    //   varying vec2 vTextureCoord;
+    //   uniform sampler2D uSampler;
+      
+    //   void main(void) {
+    //     vec4 c = texture2D(uSampler, vTextureCoord);
+    //     if (c.a != 0.0) {
+    //       c.r = gl_FragCoord.x/500.0;
+    //       c.g = gl_FragCoord.x/500.0;
+    //       c.b = 0.0;
+    //     }
+    //     gl_FragColor = c;
+    //   }
+    // `;
+    // const filter = new PIXI.Filter(undefined, shader);
+    // this.filters = [filter];
+    this.editor.set_color();
   }
 }

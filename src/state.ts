@@ -1,7 +1,8 @@
 import { Actor } from "./actor";
-import { update_property_panel } from "./properties";
+import { update_input } from "./properties";
+import { PIXIApp } from "./app";
 
-interface ActorState {
+export interface ActorState {
   x:number,
   y:number,
   rotation:number,
@@ -31,9 +32,10 @@ export class State {
     if (state) {
       if (property === 'all') {
         this.add_actor(actor);
+      } else {
+        (state as any)[property] = value;
       }
-      (state as any)[property] = value;
-      update_property_panel();
+      update_input(state);
     } else {
       console.warn('no actor state exists');
     }
@@ -42,6 +44,16 @@ export class State {
     return this.actors[actor_id];
   }
   public record_state() {
-
+    const app = PIXIApp.get_instance();
+    const actors = app.get_actors();
+    for(let actor_id in actors) {
+      const actor_state:ActorState = {
+        x: actors[actor_id].x,
+        y: actors[actor_id].y,
+        rotation: actors[actor_id].rotation,
+        scale: actors[actor_id].scale,
+      }
+      this.actors[actor_id] = actor_state;
+    }
   }
 }

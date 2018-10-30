@@ -1,18 +1,15 @@
 import * as PIXI from 'pixi.js';
 import { PIXIApp } from './app';
-import { Actor } from './actor';
 import { init_blocks } from './blocks';
-import { update_property_panel } from './properties';
-// const renderer = PIXI.autoDetectRenderer(620, 900);
-// const stage = new PIXI.Container();
-// renderer.render(stage);
+import { init_property_panel } from './properties';
+export const application_width = 620;
+export const application_height = 750;
 const options = {
-  backgroundColor: 0x1099bb,
+  backgroundColor: 0xffffff,
 }
-// const app = new PIXIApp(620, 900, options);
 const config = {
-  width: 620,
-  height: 750,
+  width: application_width,
+  height: application_height,
   options: options,
 }
 const app = PIXIApp.get_instance(config);
@@ -20,4 +17,4 @@ const dom = document.body.getElementsByClassName('canvas')[0];
 dom.appendChild(app.view);
 
 init_blocks();
-update_property_panel();
+init_property_panel();

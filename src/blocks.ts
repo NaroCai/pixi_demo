@@ -31,7 +31,7 @@ export function init_blocks() {
     run_button.onclick = function() {
       run_manager.run();
       state.record_state();
-    }
+    };
   }
   const clear_button = document.getElementById('clear');
   if (clear_button) {
@@ -41,7 +41,13 @@ export function init_blocks() {
       }
       run_manager.clear();
       app.reset_states();
-    }
+    };
+  }
+  const detect_test = document.getElementById('detect');
+  if (detect_test) {
+    detect_test.onclick = function() {
+      app.detect_color();
+    };
   }
 }
 

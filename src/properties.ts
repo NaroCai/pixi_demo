@@ -1,22 +1,29 @@
-import { State } from './state';
-export function update_property_panel() {
-  const state = State.get_instance();
-  const input_list = document.getElementsByTagName('input');
+import { ActorState } from './state';
+import { PIXIApp } from './app';
+export function init_property_panel() {
+  const app = PIXIApp.get_instance();
   const actor_id = 'actor';
-  for (let i = 0; i < input_list.length; i++) {
-    update_input(input_list[i] as any, state, actor_id);
+  const input_x = document.getElementById('input_x') as HTMLInputElement;
+  if (input_x) {
+    input_x.onchange = function() {
+      const actor = app.get_actor_by_id(actor_id);
+      actor.set_x(Number(input_x.value));
+    }
   }
-  // if (input_x) {
-  //   update_input(input_x as any, state, actor_id);
-  // }
 
-  // const input_y = document.getElementById('input_y');
-  // if (input_y) {
-  //   update_input(input_y as any, state, actor_id);
-  // }
+  const input_y = document.getElementById('input_y') as HTMLInputElement;
+  if (input_y) {
+    input_y.onchange = function() {
+      const actor = app.get_actor_by_id(actor_id);
+      actor.set_y(Number(input_y.value));
+    }
+  }
 }
 
-function update_input(input:HTMLInputElement, state:State, actor_id:string) {
-  const actor_state = state.read_state(actor_id);
-  input.value = Number((actor_state as any)[input.name]).toFixed(0);
+export function update_input(actor_state:ActorState) {
+  const input_list = document.getElementsByTagName('input');
+  for (let i = 0; i < input_list.length; i++) {
+    const input = input_list[i];
+    input.value = Number((actor_state as any)[input.name]).toFixed(0);
+  }
 }
